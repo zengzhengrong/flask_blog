@@ -1,3 +1,5 @@
+[English](https://github.com/zengzhengrong/flask_blog/blob/master/README-English.md)
+
 # flask_blog
 用flask 搭建的blog-[测试链接](http://47.106.195.247:800)
 ```
