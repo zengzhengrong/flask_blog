@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Login</legend>
+                <div class="form-group">
+                    {{ form.email.label(class='form-control-label') }}
+                    {% if form.email.errors %}
+                        {{ form.email(class='form-control form-control-lg is-invalid') }}
+                        <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>
+                            {{ error }}
+                            </span>    
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class='form-control form-control-lg') }}
+                    {% endif %}   
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class='form-control-label') }}
+                    {% if form.password.errors %}
+                        {{ form.password(class='form-control form-control-lg is-invalid') }}
+                        <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>
+                            {{ error }}
+                            </span>    
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class='form-control form-control-lg') }}
+                    {% endif %}   
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class='form-check-input') }}
+                    {{ form.remember.label(class='form-check-label') }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class='btn btn-outline-info') }}
+            </div>
+            <div class="form-group">
+            <small class="text-muted">
+                <a href="#" data-toggle="modal" data-target="#RequestRestModal">忘记密码？</a>
+            </small>
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            没有账号？<a href="{{ url_for('users.register') }}" class="ml-2">注册</a>
+        </small>
+    </div>
+    <div class="modal fade" id="RequestRestModal" tabindex="-1" role="dialog" aria-labelledby="RequestRestModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="RequestRestModal">提供邮箱更改密码</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ url_for('users.request_reset_password_modal') }}" method="POST">
+                <div class="modal-body">
+                    {{ rest_form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ rest_form.email.label(class='form-control-label') }}
+                        {% if rest_form.email.errors %}
+                            {{ rest_form.email(class='form-control form-control-lg is-invalid') }}
+                            <div class="invalid-feedback">
+                            {% for error in rest_form.email.errors %}
+                                <span>
+                                {{ error }}
+                                </span>    
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ rest_form.email(class='form-control form-control-lg') }}
+                        {% endif %}   
+                    </div>
+                </div>                   
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    {{ rest_form.submit(class='btn btn-outline-info') }}
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

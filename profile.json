@@ -1,0 +1,5 @@
+{
+    "SECRET_KEY" :"4464f3c603fd38f2bd6838a125c8b27d",
+    "EMAIL_USER" :"xxx@xxx.com",
+    "EMAIL_PASSWORD":"xxx"
+}

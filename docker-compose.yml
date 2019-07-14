@@ -1,0 +1,32 @@
+version: "3.5"
+services:
+  web:
+    container_name: flask-container
+    build: .
+    restart: always
+    ports:
+      - "800:800"
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        service nginx start
+        python3 populate.py
+        gunicorn -w 3 run:app
+    volumes:
+      - web:/web
+    depends_on:
+      - db
+
+  db:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: flaskdb
+      POSTGRES_PASSWORD: 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+volumes:
+  pgdata:
+  web:

@@ -1,0 +1,10 @@
+*~
+__pycache__
+*.pyc
+logs/
+.vscode/
+Pipfile
+Pipfile.lock
+uploads/
+db.sqlite3
+.devcontainer/

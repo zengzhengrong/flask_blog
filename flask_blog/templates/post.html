@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<article class="media content-section">
+    {% if not post.post_image == 'default.jpg' %}
+    <img class="rounded article-img" src="{{ url_for('static',filename='posts/' + post.author.username + '/' + post.post_image) }}">
+    {% endif %}
+    <!-- <img class="rounded article-img" src="{{ url_for('static',filename='account/avatar/' + post.author.image_file) }}"> -->
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author.username }}</a>
+            <small class="text-muted">{{ post.created_time.strftime('%Y-%m-%d %H:%M') }}</small>
+            {% if current_user == post.author %}
+            <div>
+            <a href="{{ url_for('posts.update_post',post_id=post.id) }}"><button type="button" class="btn btn-sm btn-outline-info mb-2">修改</button></a>
+            <button type="button" class="btn btn-sm btn-outline-danger mb-2" data-toggle="modal" data-target="#DeleteModal">删除</button>
+            </div>
+            {% endif %}
+        </div>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+        </div>
+</article>
+<!-- Modal -->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="DeleteModal">删除：《{{ post.title }}》这篇博客</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            警告：删除后无法还原
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            <form action="{{ url_for('posts.delete_post',post_id=post.id) }}" method="POST" class="">
+                <input class="btn btn-danger" type="submit" value="删除">
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

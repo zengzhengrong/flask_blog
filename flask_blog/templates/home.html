@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for post in posts.items %}
+    <article class="media content-section">
+      {% if not post.post_image == 'default.jpg' %}
+      <img class="rounded article-img" src="{{ url_for('static',filename='posts/' + post.author.username + '/' + post.post_image) }}">
+      {% endif %}
+            <div class="media-body">
+              <div class="article-metadata">
+                <strong>
+                  <a class="mr-2" href="{{ url_for('users.user_detail',username=post.author.username) }}">{{ post.author.username }}</a>
+                </strong>
+                <small class="text-muted">{{ post.created_time.strftime('%Y-%m-%d %H:%M') }}</small>
+              </div>
+              <h4><a class="article-title" href="{{ url_for('posts.post',post_id=post.id) }}">{{ post.title }}</a></h4>
+              <p class="article-content">{{ post.content }}</p>
+            </div>
+    </article>
+    {% endfor%}
+    {% include 'pagination.html' %}
+{% endblock content %}

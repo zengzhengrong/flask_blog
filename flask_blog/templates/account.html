@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ avatar }}">
+        <div class="media-body">
+        <h2 class="account-heading">{{ current_user.username }}</h2>
+        <p class="text-secondary">邮箱：{{ current_user.email }}</p>
+        {% if current_user.account.biography %}
+        <p class="text-secondary">简介：{{ current_user.account.biography }}</p>
+        {% endif %}
+        </div>
+    </div>
+    <!-- 更新账户信息表单 -->
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">账户信息</legend>
+            <!-- 性别 -->
+            <div class="form-group">
+                {{ form.sex.label(class='form-control-label') }}
+                {% if form.sex.errors %}
+                    {{ form.sex(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                    {% for error in form.sex.errors %}
+                        <span>
+                        {{ error }}
+                        </span>    
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.sex(class='form-control form-control-lg') }}
+                {% endif %}   
+            </div>
+            <!-- 简介 -->
+            <div class="form-group">
+                {{ form.biography.label(class='form-control-label') }}
+                {% if form.biography.errors %}
+                    {{ form.biography(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                    {% for error in form.biography.errors %}
+                        <span>
+                        {{ error }}
+                        </span>    
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.biography(class='form-control form-control-lg') }}
+                {% endif %}   
+            </div>
+            <!-- 地址 -->
+            <div class="form-group">
+                {{ form.location.label(class='form-control-label') }}
+                {% if form.location.errors %}
+                    {{ form.location(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                    {% for error in form.location.errors %}
+                        <span>
+                        {{ error }}
+                        </span>    
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.location(class='form-control form-control-lg') }}
+                {% endif %}   
+            </div>
+            <!-- QQ -->
+            <div class="form-group">
+                {{ form.qq.label(class='form-control-label') }}
+                {% if form.qq.errors %}
+                    {{ form.qq(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                    {% for error in form.qq.errors %}
+                        <span>
+                        {{ error }}
+                        </span>    
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.qq(class='form-control form-control-lg') }}
+                {% endif %}   
+            </div>
+            <!-- 电话号码 -->
+            <div class="form-group">
+                {{ form.phone.label(class='form-control-label') }}
+                {% if form.phone.errors %}
+                    {{ form.phone(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                    {% for error in form.phone.errors %}
+                        <span>
+                        {{ error }}
+                        </span>    
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.phone(class='form-control form-control-lg') }}
+                {% endif %}   
+            </div>
+            <!-- 上传头像 -->
+            <div class="form-group">
+                {{ form.avatar.label() }}
+                {{ form.avatar(class='form-control-file') }}
+                {% if form.avatar.errors %}                  
+                    {% for error in form.avatar.errors %}
+                        <span class="text-danger">
+                        {{ error }}
+                        </span>    
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class='btn btn-outline-info') }}
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block js %}
+{% if not form.sex.data %}
+<script>
+    var x = document.getElementById("sex");  
+    x.selectedIndex = -1; 
+</script>
+{% endif %}
+{% endblock %}
